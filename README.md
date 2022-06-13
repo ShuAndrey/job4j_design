@@ -10,4 +10,4 @@
 2. Ввод-вывод
 3. SQL, JDBC
 4. Garbage Collection
-5. ООД
+5. ООД 

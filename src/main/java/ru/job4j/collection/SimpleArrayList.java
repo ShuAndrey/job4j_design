@@ -52,8 +52,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
      */
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, container.length);
-        T result = container[index];
+        T result = get(index);
         container[index] = newValue;
         return result;
     }
@@ -68,8 +67,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
      */
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, container.length);
-        T result = container[index];
+        T result = get(index);
         System.arraycopy(container,
                 index + 1,
                 container,
@@ -90,7 +88,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
      */
     @Override
     public T get(int index) {
-        Objects.checkIndex(index, container.length);
+        Objects.checkIndex(index, size);
         return container[index];
     }
 
@@ -152,10 +150,12 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     /**
      * Метод увеличивает массив массив в 2 раза, если он полностью заполнен.
+     * Если длинна массива равна 0, то размер массива становится равен 2.
      */
     private void checkSize() {
+        int length = container.length != 0 ? container.length * 2 : 2;
         if (size == container.length) {
-            container = Arrays.copyOf(container, container.length * 2);
+            container = Arrays.copyOf(container, length);
         }
     }
 }

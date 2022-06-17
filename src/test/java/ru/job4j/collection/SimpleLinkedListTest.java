@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Iterator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertNull;
 
 
 public class SimpleLinkedListTest {
@@ -16,6 +17,17 @@ public class SimpleLinkedListTest {
         list.add(2);
         assertThat(list.get(0), Is.is(1));
         assertThat(list.get(1), Is.is(2));
+    }
+
+    @Test
+    public void whenAddNullAndGet() {
+        SimpleLinkedList<String> list = new SimpleLinkedList<>();
+        list.add("1");
+        list.add(null);
+        list.add("2");
+        assertThat(list.get(0), Is.is("1"));
+        assertNull(list.get(1));
+        assertThat(list.get(2), Is.is("2"));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)

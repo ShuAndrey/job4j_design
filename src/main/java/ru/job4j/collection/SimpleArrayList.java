@@ -107,7 +107,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
      */
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             /**
              * Переменная для проверки изменения массива.
              */

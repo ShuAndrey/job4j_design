@@ -66,18 +66,19 @@ public class ForwardLinked<T> implements Iterable<T> {
      * @return - true, если список был перевернут.
      */
     public boolean revert() {
-        if (head == null || head.next == null) {
-            return false;
+        boolean result = head != null && head.next != null;
+        if (result) {
+            Node<T> actual = head.next;
+            Node<T> tail;
+            head.next = null;
+            while (actual != null) {
+                tail = actual.next;
+                actual.next = head;
+                head = actual;
+                actual = tail;
+            }
         }
-        Node<T> actual = head.next;
-        Node<T> tail;
-        while (actual != null) {
-            tail = actual.next;
-            actual.next = head;
-            head = actual;
-            actual = tail;
-        }
-        return true;
+        return result;
     }
 
     /**

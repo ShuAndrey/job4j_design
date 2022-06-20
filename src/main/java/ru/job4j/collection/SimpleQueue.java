@@ -33,11 +33,14 @@ public class SimpleQueue<T> {
      * @return - значение.
      */
     public T poll() {
-        if (countOut == 0) {
-            changeStack();
-        }
-        if (countOut == 0) {
+        if (countOut == 0 && countIn == 0) {
             throw new NoSuchElementException();
+        } else if (countOut == 0) {
+            while (countIn > 0) {
+                out.push(in.pop());
+                countIn--;
+                countOut++;
+            }
         }
         countOut--;
         return out.pop();
@@ -51,16 +54,5 @@ public class SimpleQueue<T> {
     public void push(T value) {
         in.push(value);
         countIn++;
-    }
-
-    /**
-     * Метод копирует значение из стека In в стек Out.
-     */
-    private void changeStack() {
-        while (countIn > 0) {
-            out.push(in.pop());
-            countIn--;
-            countOut++;
-        }
     }
 }

@@ -38,14 +38,7 @@ public class ForwardLinked<T> implements Iterable<T> {
      * @param value - элемент.
      */
     public void addFirst(T value) {
-        Node<T> node = new Node<>(value, null);
-        if (head == null) {
-            head = node;
-            return;
-        }
-        Node<T> temp = head;
-        head = node;
-        head.next = temp;
+        head = new Node<>(value, head);
     }
 
     /**
@@ -64,6 +57,27 @@ public class ForwardLinked<T> implements Iterable<T> {
         head.value = null;
         head.next = null;
         head = node;
+        return result;
+    }
+
+    /**
+     * Метод переворачивает односвязный список.
+     *
+     * @return - true, если список был перевернут.
+     */
+    public boolean revert() {
+        boolean result = head != null && head.next != null;
+        if (result) {
+            Node<T> actual = head.next;
+            Node<T> tail;
+            head.next = null;
+            while (actual != null) {
+                tail = actual.next;
+                actual.next = head;
+                head = actual;
+                actual = tail;
+            }
+        }
         return result;
     }
 

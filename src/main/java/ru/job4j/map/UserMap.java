@@ -16,7 +16,9 @@ public class UserMap {
      */
     public static void main(String[] args) {
         User first = new User("Andrey", 0);
-        User second = new User("Alex", 1);
+        System.out.println(first.hashCode());
+        User second = new User("Andrey", 0);
+        System.out.println(second.hashCode());
         Map<User, Object> map = new HashMap<>();
         map.put(first, new Object());
         map.put(second, new Object());

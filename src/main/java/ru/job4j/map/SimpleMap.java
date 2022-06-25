@@ -111,7 +111,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public V get(K key) {
         V result = null;
         for (MapEntry<K, V> map : table) {
-            if (map != null && Objects.equals(key, map.key)) {
+            if (map != null
+                    && Objects.hashCode(map.key) == Objects.hashCode(key)
+                    && Objects.equals(key, map.key)) {
                 result = map.value;
             }
         }
@@ -128,7 +130,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public boolean remove(K key) {
         boolean result = false;
         for (int index = 0; index < table.length; index++) {
-            if (table[index] != null && key.equals(table[index].key)) {
+            if (table[index] != null
+                    && Objects.hashCode(table[index].key) == Objects.hashCode(key)
+                    && Objects.equals(key, table[index].key)) {
                 table[index] = null;
                 count--;
                 modCount++;
@@ -148,14 +152,22 @@ public class SimpleMap<K, V> implements Map<K, V> {
         return new Iterator<>() {
             private final int expectedModCount = modCount;
             private int point = 0;
-            private int pointCount = 0;
 
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return point < table.length - 1 && pointCount < count;
+                boolean result = false;
+                for (int index = point; index < table.length; index++) {
+                    if (table[index] != null) {
+                        point = index;
+                        result = true;
+                        break;
+                    }
+
+                }
+                return result;
             }
 
             @Override
@@ -163,10 +175,6 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                while (table[point] == null) {
-                    point++;
-                }
-                pointCount++;
                 return table[point++].key;
             }
         };

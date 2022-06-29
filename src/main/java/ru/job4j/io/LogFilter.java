@@ -1,8 +1,6 @@
 package ru.job4j.io;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class LogFilter {
      * @param file файл.
      * @return коллекция.
      */
-    public List<String> filter(String file) {
+    public static List<String> filter(String file) {
         List<String> result = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             String line = in.readLine();
@@ -38,13 +36,29 @@ public class LogFilter {
     }
 
     /**
+     * Метод запсывает логи в файл.
+     *
+     * @param log  логи.
+     * @param file файл.
+     */
+    public static void save(List<String> log, String file) {
+        try (PrintWriter out = new PrintWriter(
+                new BufferedOutputStream(
+                        new FileOutputStream(file)
+                ))) {
+            log.forEach(out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Демонстрация работы метода filter.
      *
      * @param args args.
      */
     public static void main(String[] args) {
-        LogFilter logFilter = new LogFilter();
-        List<String> log = logFilter.filter("log.txt");
-        log.forEach(System.out::println);
+        List<String> log = filter("log.txt");
+        save(log, "404.txt");
     }
 }

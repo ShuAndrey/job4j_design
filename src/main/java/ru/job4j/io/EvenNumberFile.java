@@ -1,6 +1,7 @@
 package ru.job4j.io;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * Класс показывает работу FileInputStream.
@@ -27,7 +28,7 @@ public class EvenNumberFile {
                         ? line + " - четное."
                         : line + " - нечетное.");
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

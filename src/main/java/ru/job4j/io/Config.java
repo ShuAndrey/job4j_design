@@ -40,7 +40,9 @@ public class Config {
                 if (!line.contains("#") && line.contains("=")) {
                     index = line.indexOf("=");
                     if (index == 0 || index == line.length() - 1) {
-                        throw new IllegalArgumentException();
+                        throw new IllegalArgumentException(
+                                "В строке " + line + " отсутствует ключ и/или значение."
+                        );
                     }
                     values.put(line.substring(0, index), line.substring(index + 1));
                 }

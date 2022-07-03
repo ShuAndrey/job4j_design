@@ -93,8 +93,6 @@ public class SearchFiles implements FileVisitor<Path> {
      * @return коллекция.
      */
     public List<Path> getPaths() {
-        List<Path> result = new ArrayList<>(paths);
-        paths = null;
-        return result;
+        return paths;
     }
 }

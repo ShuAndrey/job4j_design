@@ -28,15 +28,17 @@ public class Search {
     }
 
     private static void isValid(String[] args) {
-        if (args.length == 0) {
+        if (args.length != 2) {
             throw new IllegalArgumentException(
-                    "Root folder is null. Usage java -jar Search.jar ROOT_FOLDER."
+                    "Wrong number of arguments. "
+                            + "Usage java -jar Search.jar ROOT_FOLDER FILE_FORMAT."
             );
         }
-        if (args.length == 1) {
-            throw new IllegalArgumentException(
-                    "File format not specified. Usage java -jar Search.jar FILE_FORMAT."
-            );
+        if (!Files.exists(Path.of(args[0]))) {
+            throw new IllegalArgumentException("Directory does not exist.");
+        }
+        if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException("File format not specified.");
         }
     }
 }

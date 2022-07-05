@@ -1,5 +1,6 @@
 package ru.job4j.io;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,8 +35,8 @@ public class Search {
                             + "Usage java -jar Search.jar ROOT_FOLDER FILE_FORMAT."
             );
         }
-        if (!Files.exists(Path.of(args[0]))) {
-            throw new IllegalArgumentException("Directory does not exist.");
+        if (!new File(args[0]).isDirectory()) {
+            throw new IllegalArgumentException("Directory does not exist or is not a directory.");
         }
         if (!args[1].startsWith(".")) {
             throw new IllegalArgumentException("File format not specified.");

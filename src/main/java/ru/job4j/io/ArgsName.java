@@ -42,7 +42,7 @@ public class ArgsName {
     }
 
     private void check(String arg, int index) {
-        if (arg.toCharArray()[0] != '-') {
+        if (!arg.startsWith("-")) {
             throw new IllegalArgumentException("Value is no dash. " + arg);
         }
         if (!arg.contains("=")) {

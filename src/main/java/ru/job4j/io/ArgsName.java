@@ -25,7 +25,7 @@ public class ArgsName {
     public String get(String key) {
         String result = values.get(key);
         if (result == null) {
-            throw new IllegalArgumentException("Key value pair missing.");
+            throw new IllegalArgumentException("Key value pair missing. " + key);
         }
         return values.get(key);
     }
@@ -35,20 +35,24 @@ public class ArgsName {
             throw new IllegalArgumentException("Array is empty.");
         }
         for (String arg : args) {
-            if (arg.toCharArray()[0] != '-') {
-                throw new IllegalArgumentException("Value is no dash");
-            }
-            if (!arg.contains("=")) {
-                throw new IllegalArgumentException("Value has no equal sign.");
-            }
-            if (arg.startsWith("-=")) {
-                throw new IllegalArgumentException("Value has no key");
-            }
             int index = arg.indexOf("=");
-            if (index == arg.length() - 1) {
-                throw new IllegalArgumentException("Value is empty");
-            }
+            check(arg, index);
             values.put(arg.substring(1, index), arg.substring(index + 1));
+        }
+    }
+
+    private void check(String arg, int index) {
+        if (arg.toCharArray()[0] != '-') {
+            throw new IllegalArgumentException("Value is no dash. " + arg);
+        }
+        if (!arg.contains("=")) {
+            throw new IllegalArgumentException("Value has no equal sign. " + arg);
+        }
+        if (arg.startsWith("-=")) {
+            throw new IllegalArgumentException("Value has no key. " + arg);
+        }
+        if (index == arg.length() - 1) {
+            throw new IllegalArgumentException("Value is empty. " + arg);
         }
     }
 

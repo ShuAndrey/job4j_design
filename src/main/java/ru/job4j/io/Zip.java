@@ -34,23 +34,6 @@ public class Zip {
     }
 
     /**
-     * Архив файла.
-     *
-     * @param source файл для архивации.
-     * @param target архив.
-     */
-    public void packSingleFile(File source, File target) {
-        try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
-            zip.putNextEntry(new ZipEntry(source.getPath()));
-            try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(source))) {
-                zip.write(out.readAllBytes());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Запуск приложения.
      *
      * @param args args

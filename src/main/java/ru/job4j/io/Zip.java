@@ -40,9 +40,25 @@ public class Zip {
      */
     public static void main(String[] args) throws IOException {
         ArgsName jvm = ArgsName.of(args);
+        check(args, jvm);
         List<Path> sources = Search.search(Paths.get(jvm.get("d")), p -> !p.toFile()
                 .getName()
                 .endsWith(jvm.get("e")));
         new Zip().packFiles(sources, new File(jvm.get("o")));
+    }
+
+    private static void check(String[] args, ArgsName jvm) {
+        if (args.length != 3) {
+            throw new IllegalArgumentException("Incorrect array length.");
+        }
+        if (!new File((jvm.get("d"))).isDirectory()) {
+            throw new IllegalArgumentException("Path is not a directory. " + jvm.get("d"));
+        }
+        if (!jvm.get("e").startsWith(".")) {
+            throw new IllegalArgumentException("The value is not in the correct format. " + jvm.get("e"));
+        }
+        if (!jvm.get("o").endsWith(".zip")) {
+            throw new IllegalArgumentException("The value must be in .zip format. " + jvm.get("o"));
+        }
     }
 }

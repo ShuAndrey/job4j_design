@@ -48,7 +48,7 @@ public class CSVReader {
     private static List<Integer> filter(ArgsName argsName, String column) {
         List<Integer> numbers = new ArrayList<>();
         String[] lines = argsName.get("filter").split(",");
-        String[] columns = column.split(",");
+        String[] columns = column.split(argsName.get("delimiter"));
         for (int out = 0; out < lines.length; out++) {
             for (String s : columns) {
                 if (lines[out].equals(s)) {
@@ -67,13 +67,13 @@ public class CSVReader {
      */
     private static void print(ArgsName argsName, List<StringJoiner> result) {
         if ("stdout".equals(argsName.get("out"))) {
-            System.out.println(argsName.get("filter"));
+            System.out.println(argsName.get("filter").replace(",", argsName.get("delimiter")));
             result.forEach(System.out::println);
         } else {
             try (PrintWriter out = new PrintWriter(
                     new FileWriter(argsName.get("out"), Charset.forName("WINDOWS-1251"))
             )) {
-                out.write(argsName.get("filter") + System.lineSeparator());
+                out.write(argsName.get("filter").replace(",",  argsName.get("delimiter")) + System.lineSeparator());
                 for (StringJoiner stringJoiner : result) {
                     out.write(stringJoiner + System.lineSeparator());
                 }

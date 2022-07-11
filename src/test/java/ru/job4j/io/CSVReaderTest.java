@@ -17,7 +17,7 @@ public class CSVReaderTest {
     public void whenFilterTwoColumns() throws Exception {
         String data = String.join(
                 System.lineSeparator(),
-                "name,age,last_name,education",
+                "name;age;last_name;education",
                 "Tom;20;Smith;Bachelor",
                 "Jack;25;Johnson;Undergraduate",
                 "William;30;Brown;Secondary special"
@@ -30,7 +30,7 @@ public class CSVReaderTest {
         Files.writeString(file.toPath(), data);
         String expected = String.join(
                 System.lineSeparator(),
-                "name,age",
+                "name;age",
                 "Tom;20",
                 "Jack;25",
                 "William;30"

@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * Программа для запросов клиен-сервер.
+ * Программа для запросов клиент-сервер.
  *
  * @author Andrey Shulgin
  */
@@ -21,9 +21,15 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                    if (in.readLine().contains("?msg=Bye")) {
+                    String msg = in.readLine();
+                    if (msg.contains("?msg=Exit")) {
                         server.close();
+                    } else if (msg.contains("?msg=Hello")) {
+                        out.write("Hello, dear friend.".getBytes());
+                    } else {
+                        out.write("What".getBytes());
                     }
+
                     out.flush();
                 }
             }

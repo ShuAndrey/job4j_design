@@ -22,12 +22,9 @@ public class EchoServer {
                              new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     System.out.println();
-                    for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
-                        if ("GET /?msg=Bye HTTP/1.1".equals(str)) {
-                            server.close();
-                            break;
-                        }
-                        System.out.println(str);
+                    if ("GET /?msg=Bye HTTP/1.1".equals(in.readLine())) {
+                        server.close();
+                        break;
                     }
                     out.flush();
                 }

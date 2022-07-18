@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<student year="18" group="4-B" headman="false">
+    <person name="Alex" age="18"/>
+    <grades>
+        <grade>5</grade>
+        <grade>3</grade>
+        <grade>4</grade>
+    </grades>
+</student>

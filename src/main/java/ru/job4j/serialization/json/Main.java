@@ -11,7 +11,7 @@ import com.google.gson.GsonBuilder;
 public class Main {
     public static void main(String[] args) {
         final Person person = new Person(false, 30, new Contact("11-111"),
-                new String[]{"Worker", "Married"});
+                "Worker", "Married");
 
         /* Преобразуем объект person в json-строку. */
         final Gson gson = new GsonBuilder().create();
